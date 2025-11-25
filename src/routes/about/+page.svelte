@@ -1,10 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import type { Component } from 'svelte';
+	import { ContentRenderer } from '$lib/components';
 
 	let { data }: { data: PageData } = $props();
-
-	const Content = data.component as Component;
 </script>
 
 <svelte:head>
@@ -15,7 +14,5 @@
 </svelte:head>
 
 <main>
-	<article>
-		<Content />
-	</article>
+	<ContentRenderer component={data.component as Component} />
 </main>

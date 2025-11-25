@@ -2,10 +2,10 @@
 	import type { PageData } from './$types';
 	import type { NoteMetadata } from '$lib/types/content';
 	import type { Component } from 'svelte';
+	import { ContentRenderer } from '$lib/components';
 
 	let { data }: { data: PageData } = $props();
 
-	const Content = data.component as Component;
 	const isNote = data.metadata.type === 'note';
 </script>
 
@@ -17,8 +17,8 @@
 </svelte:head>
 
 <main>
-	<article>
-		<header>
+	<ContentRenderer component={data.component as Component}>
+		{#snippet header()}
 			{#if data.metadata.title}
 				<h1>{data.metadata.title}</h1>
 			{/if}
@@ -31,16 +31,15 @@
 					View linked resource
 				</a>
 			{/if}
-		</header>
-		<Content />
-		{#if data.metadata.tags && data.metadata.tags.length > 0}
-			<footer>
+		{/snippet}
+		{#snippet footer()}
+			{#if data.metadata.tags && data.metadata.tags.length > 0}
 				<ul>
 					{#each data.metadata.tags as tag}
 						<li>{tag}</li>
 					{/each}
 				</ul>
-			</footer>
-		{/if}
-	</article>
+			{/if}
+		{/snippet}
+	</ContentRenderer>
 </main>
