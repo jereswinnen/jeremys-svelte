@@ -1,0 +1,10 @@
+import { getWorkItems } from '$lib/content';
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async () => {
+	const work = await getWorkItems();
+
+	return {
+		work
+	};
+};
