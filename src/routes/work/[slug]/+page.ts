@@ -1,8 +1,8 @@
 import { getWorkItem } from '$lib/content';
 import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import type { PageLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageLoad = async ({ params }) => {
 	const item = await getWorkItem(params.slug);
 
 	if (!item) {
